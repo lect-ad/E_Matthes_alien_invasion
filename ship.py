@@ -16,12 +16,15 @@ class Ship:
         self.rect.midbottom = self.screen_rect.midbottom
 
         self.moving_right = False
+        self.moving_left = False
 
     def blitme(self):
         """Draws the ship in current position."""
         self.screen.blit(self.image, self.rect)
 
     def update(self):
-        """Updates the ship's position according to flag."""
+        """Updates the ship's position according to flags."""
         if self.moving_right:
             self.rect.x += 1
+        if self.moving_left:
+            self.rect.x -= 1
