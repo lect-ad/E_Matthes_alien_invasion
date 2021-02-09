@@ -72,17 +72,24 @@ class AlienInvasion:
     def _create_fleet(self):
         """Creates alien intruders' fleet."""
         alien = Alien(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
         available_space_x = self.settings.screen_width - 2 * alien_width
         number_aliens_x = available_space_x // (2 * alien_width)
-        for alien_number in range(number_aliens_x):
-            self._create_single_alien(alien_width, alien_number)
+        available_space_y = self.settings.screen_height - \
+                            self.ship.rect.height - 3 * alien_height
+        number_rows_y = available_space_y // (2 * alien_height)
+        for row_number in range(number_rows_y):
+            for alien_number in range(number_aliens_x):
+                self._create_single_alien(row_number, alien_number)
 
-    def _create_single_alien(self, alien_width, alien_number):
+    def _create_single_alien(self, row_number, alien_number):
         """Creates one single alien ship and places it in the row of ships."""
         alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
         alien.x = alien_width + 2 * alien_width * alien_number
+        alien.y = alien_height + 2 * alien_height * row_number
         alien.rect.x = alien.x
+        alien.rect.y = alien.y
         self.aliens.add(alien)
 
     def _fire_bullet(self):
