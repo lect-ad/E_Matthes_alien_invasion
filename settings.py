@@ -8,6 +8,7 @@ class Settings:
         self.screen_width = 1200
         self.screen_height = 800
         self.bg_color = (25, 25, 112)
+
         self.ship_speed = 1.5
 
         self.bullet_speed = 1
@@ -15,3 +16,7 @@ class Settings:
         self.bullet_height = 15
         self.bullet_color = (255, 255, 255)
         self.bullets_allowed = 3
+
+        self.alien_speed = 1
+        self.alien_drop_speed = 10
+        self.aliens_direction = 1
