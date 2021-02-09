@@ -133,6 +133,7 @@ class AlienInvasion:
         self.aliens.update()
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()
+        self._check_aliens_bottom()
 
     def _update_screen(self):
         """Refreshes screen."""
@@ -141,11 +142,19 @@ class AlienInvasion:
         self.aliens.draw(self.screen)
         for bullet in self.bullets:
             bullet.draw_bullet()
+        pygame.display.flip()
 
     def _check_bullet_alien_collision(self):
         """Handles collisions between bullets and aliens."""
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True)
+
+    def _check_aliens_bottom(self):
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens:
+            if alien.rect.bottom >= screen_rect.bottom:
+                self._ship_hit()
+                break
 
     def _ship_hit(self):
         """Handles ship-alien collisions."""
@@ -156,9 +165,9 @@ class AlienInvasion:
         self._create_fleet()
         self.ship.center_ship()
 
-        sleep(0.5)
+        sleep(1)
 
-        pygame.display.flip()
+
 
 
 if __name__ == '__main__':
