@@ -39,9 +39,10 @@ class AlienInvasion:
         """Launches main game cycle."""
         while True:
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
             self._update_screen()
 
     def _check_events(self):
@@ -158,12 +159,15 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """Handles ship-alien collisions."""
-        self.stats.ships_left -= 1
-        self.aliens.empty()
-        self.bullets.empty()
+        if self.stats.ships_left > 0:
+            self.stats.ships_left -= 1
+            self.aliens.empty()
+            self.bullets.empty()
 
-        self._create_fleet()
-        self.ship.center_ship()
+            self._create_fleet()
+            self.ship.center_ship()
+        else:
+            self.stats.game_active = False
 
         sleep(1)
 
