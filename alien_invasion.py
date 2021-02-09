@@ -59,12 +59,12 @@ class AlienInvasion:
             self.ship.moving_left = False
 
     def _update_screen(self):
-        """Refreshes screen"""
+        """Refreshes screen."""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
         pygame.display.flip()
 
 
 if __name__ == '__main__':
-    ai = AlienInvasion()
-    ai.run_game()
+    ai_game = AlienInvasion()
+    ai_game.run_game()

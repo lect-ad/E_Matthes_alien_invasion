@@ -21,7 +21,7 @@ class Ship:
         self.moving_left = False
 
     def blitme(self):
-        """Draws the ship in current position."""
+        """Draws the ship at current position."""
         self.screen.blit(self.image, self.rect)
 
     def update(self):
