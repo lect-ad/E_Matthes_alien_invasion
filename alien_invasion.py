@@ -40,7 +40,7 @@ class AlienInvasion:
             self._update_screen()
 
     def _check_events(self):
-        """Processes kbd and mouse events"""
+        """Processes kbd and mouse events."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -76,10 +76,14 @@ class AlienInvasion:
         available_space_x = self.settings.screen_width - 2 * alien_width
         number_aliens_x = available_space_x // (2 * alien_width)
         for alien_number in range(number_aliens_x):
-            alien = Alien(self)
-            alien.x = alien_width + 2 * alien_width * alien_number
-            alien.rect.x = alien.x
-            self.aliens.add(alien)
+            self._create_single_alien(alien_width, alien_number)
+
+    def _create_single_alien(self, alien_width, alien_number):
+        """Creates one single alien ship and places it in the row of ships."""
+        alien = Alien(self)
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        self.aliens.add(alien)
 
     def _fire_bullet(self):
         """Creates a new bullet and incorporates it into 'bullets' group."""
