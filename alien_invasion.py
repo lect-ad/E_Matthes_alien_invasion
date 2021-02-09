@@ -6,7 +6,7 @@ from settings import Settings
 from game_stats import GameStats
 from ship import Ship
 from bullet import Bullet
-from  alien import Alien
+from alien import Alien
 
 
 class AlienInvasion:
@@ -19,12 +19,12 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings()
 
-        self.stats = GameStats(self)
-
         self.screen = pygame.display.set_mode((self.settings.screen_width,
                                               self.settings.screen_height))
-
         pygame.display.set_caption("Alien Invasion")
+
+        self.stats = GameStats(self)
+
         # Found typo in the book code (was undefined variable 'screen'
         # instead of AlienInvasion instance in the code line below.)
         self.ship = Ship(self)
@@ -132,7 +132,7 @@ class AlienInvasion:
         self._check_fleet_edges()
         self.aliens.update()
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            print("Ship hit!")
+            self._ship_hit()
 
     def _update_screen(self):
         """Refreshes screen."""
@@ -146,6 +146,17 @@ class AlienInvasion:
         """Handles collisions between bullets and aliens."""
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True)
+
+    def _ship_hit(self):
+        """Handles ship-alien collisions."""
+        self.stats.ships_left -= 1
+        self.aliens.empty()
+        self.bullets.empty()
+
+        self._create_fleet()
+        self.ship.center_ship()
+
+        sleep(0.5)
 
         pygame.display.flip()
 
