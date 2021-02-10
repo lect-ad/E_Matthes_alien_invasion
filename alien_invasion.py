@@ -36,7 +36,9 @@ class AlienInvasion:
 
         self._create_fleet()
 
-        self.play_button = Button(self, "Play")
+        self.easy_button = Button(self, "Easy game ('e')", 150, 50, -70)
+        self.normal_button = Button(self, "Normal game ('n')", 150, 50)
+        self.hard_button = Button(self, "Hard game ('h')", 150, 50, 70)
 
     def run_game(self):
         """Launches main game cycle."""
@@ -63,8 +65,16 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_position):
         """Starts new game on Play button clicking."""
-        button_clicked = self.play_button.rect.collidepoint(mouse_position)
-        if button_clicked and not self.stats.game_active:
+        easy_clicked = self.easy_button.rect.collidepoint(mouse_position)
+        normal_clicked = self.normal_button.rect.collidepoint(mouse_position)
+        hard_clicked = self.hard_button.rect.collidepoint(mouse_position)
+        if not self.stats.game_active:
+            if easy_clicked:
+                self.settings.lvl = 0.5
+            elif normal_clicked:
+                self.settings.lvl = 1
+            elif hard_clicked:
+                self.settings.lvl = 1.5
             self._start_game()
 
     def _check_keydown_events(self, event):
@@ -77,7 +87,13 @@ class AlienInvasion:
         if event.key == pygame.K_SPACE:
             self._fire_bullet()
 
-        if event.key == pygame.K_p:
+        if not self.stats.game_active:
+            if event.key == pygame.K_e:
+                self.settings.lvl = 0.5
+            elif event.key == pygame.K_n:
+                self.settings.lvl = 1
+            elif event.key == pygame.K_h:
+                self.settings.lvl = 1.5
             self._start_game()
 
         if event.key == pygame.K_q:
@@ -176,7 +192,10 @@ class AlienInvasion:
         for bullet in self.bullets:
             bullet.draw_bullet()
         if not self.stats.game_active:
-            self.play_button.draw_button()
+            self.easy_button.draw_button()
+            self.normal_button.draw_button()
+            self.hard_button.draw_button()
+
         pygame.display.flip()
 
     def _check_bullet_alien_collision(self):

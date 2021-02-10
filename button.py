@@ -6,18 +6,20 @@ class Button:
     Class for representing buttons in game.
     """
 
-    def __init__(self, ai_game, message):
+    def __init__(self, ai_game, message, width=300, height=60, offset=0,
+                 button_color=(153, 255, 153), text_color=(0, 0, 0)):
         """Initiates button's attributes."""
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 
-        self.width, self.height = 200, 60
-        self.button_color = (153, 255, 153)
-        self.text_color = (0, 0, 0)
-        self.font = pygame.font.SysFont('comicsansms', 40, bold=True)
+        self.width, self.height = width, height
+        self.button_color = button_color
+        self.text_color = text_color
+        self.font = pygame.font.SysFont('comicsansms', 36, bold=True)
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.center = self.screen_rect.center
+        self.rect.center = self.screen_rect.centerx, \
+                           self.screen_rect.centery + offset
 
         self._prepare_message(message)
 
