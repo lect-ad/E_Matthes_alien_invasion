@@ -35,7 +35,7 @@ class Settings:
         self.aliens_direction = 1
 
     def increase_speed_score(self):
-        """Increases dynamic speed settings."""
+        """Increases dynamic speed and scoring settings."""
         self.ship_speed_dynamic *= self.speedup_scale
         self.bullet_speed_dynamic *= self.speedup_scale
         self.alien_speed_dynamic *= self.speedup_scale
