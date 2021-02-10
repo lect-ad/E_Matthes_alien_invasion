@@ -29,8 +29,6 @@ class AlienInvasion:
 
         self.sb = Scoreboard(self)
 
-        # Found typo in the book code (was undefined variable 'screen'
-        # instead of AlienInvasion instance in the code line below.)
         self.ship = Ship(self)
 
         self.bullets = pygame.sprite.Group()
@@ -75,11 +73,11 @@ class AlienInvasion:
         hard_clicked = self.hard_button.rect.collidepoint(mouse_position)
         if not self.stats.game_active:
             if easy_clicked:
-                self.settings.lvl = 0.5
+                self.settings.difficulty = 0.5
             elif normal_clicked:
-                self.settings.lvl = 1
+                self.settings.difficulty = 1
             elif hard_clicked:
-                self.settings.lvl = 1.5
+                self.settings.difficulty = 1.5
             self._start_game()
 
     def _check_keydown_events(self, event):
@@ -94,11 +92,11 @@ class AlienInvasion:
 
         if not self.stats.game_active:
             if event.key == pygame.K_e:
-                self.settings.lvl = 0.5
+                self.settings.difficulty = 0.5
             elif event.key == pygame.K_n:
-                self.settings.lvl = 1
+                self.settings.difficulty = 1
             elif event.key == pygame.K_h:
-                self.settings.lvl = 1.5
+                self.settings.difficulty = 1.5
             self._start_game()
 
         if event.key == pygame.K_q:
@@ -116,6 +114,7 @@ class AlienInvasion:
         self.stats.reset_stats()
         self.settings.init_dynamic_settings()
         self.stats.game_active = True
+        self.sb.prep_score()
 
         self.aliens.empty()
         self.bullets.empty()
@@ -208,6 +207,9 @@ class AlienInvasion:
         """Handles collisions between bullets and aliens."""
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True)
+        if collisions:
+            self.stats.score += self.settings.alien_points
+            self.sb.prep_score()
 
     def _check_aliens_bottom(self):
         screen_rect = self.screen.get_rect()

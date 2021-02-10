@@ -11,23 +11,25 @@ class Settings:
 
         self.ship_limit = 3
 
-        self.bullet_width = 3000
+        self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (255, 255, 255)
         self.bullets_allowed = 3
 
         self.alien_drop_speed = 10
 
-        self.lvl = 1
+        self.difficulty = 1
         self.speedup_scale = 1.1
 
         self.init_dynamic_settings()
 
     def init_dynamic_settings(self):
         """Initializes dynamic game settings."""
-        self.ship_speed_dynamic = 1.5 * self.lvl
-        self.bullet_speed_dynamic = 1 * self.lvl
-        self.alien_speed_dynamic = 1 * self.lvl
+        self.ship_speed_dynamic = 1.5 * self.difficulty
+        self.bullet_speed_dynamic = 1 * self.difficulty
+        self.alien_speed_dynamic = 1 * self.difficulty
+
+        self.alien_points = 50
 
         self.aliens_direction = 1
 
