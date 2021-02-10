@@ -36,9 +36,11 @@ class AlienInvasion:
 
         self._create_fleet()
 
-        self.easy_button = Button(self, "Easy game ('e')", 150, 50, -70)
-        self.normal_button = Button(self, "Normal game ('n')", 150, 50)
-        self.hard_button = Button(self, "Hard game ('h')", 150, 50, 70)
+        self.easy_button = Button(self, "Easy game ('e')", 300, 50, -70)
+        self.normal_button = Button(self, "Normal game ('n')", 350, 50,
+                                    button_color=(252, 226, 5))
+        self.hard_button = Button(self, "Hard game ('h')", 300, 50, 70,
+                                  button_color=(228, 63, 41))
 
     def run_game(self):
         """Launches main game cycle."""

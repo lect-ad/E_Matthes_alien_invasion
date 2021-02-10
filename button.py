@@ -12,7 +12,8 @@ class Button:
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 
-        self.width, self.height = width, height
+        self.width = width
+        self.height = height
         self.button_color = button_color
         self.text_color = text_color
         self.font = pygame.font.SysFont('comicsansms', 36, bold=True)
