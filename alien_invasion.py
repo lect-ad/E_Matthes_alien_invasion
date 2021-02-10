@@ -4,6 +4,7 @@ from time import sleep
 
 from settings import Settings
 from game_stats import GameStats
+from button import Button
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -34,6 +35,8 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
+
+        self.play_button = Button(self, "Play")
 
     def run_game(self):
         """Launches main game cycle."""
@@ -143,6 +146,8 @@ class AlienInvasion:
         self.aliens.draw(self.screen)
         for bullet in self.bullets:
             bullet.draw_bullet()
+        if not self.stats.game_active:
+            self.play_button.draw_button()
         pygame.display.flip()
 
     def _check_bullet_alien_collision(self):
