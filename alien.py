@@ -29,5 +29,5 @@ class Alien(Sprite):
 
     def update(self):
         """Moves alien towards right or left screen edge."""
-        self.x += self.settings.alien_speed * self.settings.aliens_direction
+        self.x += self.settings.alien_speed_dynamic * self.settings.aliens_direction
         self.rect.x = self.x
