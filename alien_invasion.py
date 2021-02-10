@@ -93,11 +93,13 @@ class AlienInvasion:
         if not self.stats.game_active:
             if event.key == pygame.K_e:
                 self.settings.difficulty = 0.5
+                self._start_game()
             elif event.key == pygame.K_n:
                 self.settings.difficulty = 1
+                self._start_game()
             elif event.key == pygame.K_h:
                 self.settings.difficulty = 1.5
-            self._start_game()
+                self._start_game()
 
         if event.key == pygame.K_q:
             sys.exit()
