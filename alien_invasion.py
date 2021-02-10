@@ -4,6 +4,7 @@ from time import sleep
 
 from settings import Settings
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 from ship import Ship
 from bullet import Bullet
@@ -25,6 +26,8 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         self.stats = GameStats(self)
+
+        self.sb = Scoreboard(self)
 
         # Found typo in the book code (was undefined variable 'screen'
         # instead of AlienInvasion instance in the code line below.)
@@ -191,6 +194,7 @@ class AlienInvasion:
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
         self.aliens.draw(self.screen)
+        self.sb.show_score()
         for bullet in self.bullets:
             bullet.draw_bullet()
         if not self.stats.game_active:
