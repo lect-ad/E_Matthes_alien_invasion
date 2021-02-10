@@ -91,8 +91,9 @@ class AlienInvasion:
             self.ship.moving_left = False
 
     def _start_game(self):
-        """Launches the game."""
+        """Launches the game and resets dynamic settings."""
         self.stats.reset_stats()
+        self.settings.init_dynamic_settings()
         self.stats.game_active = True
 
         self.aliens.empty()
