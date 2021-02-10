@@ -212,6 +212,7 @@ class AlienInvasion:
                 self.stats.score += self.settings.alien_points \
                                     * len(aliens_hit)
             self.sb.prep_score()
+            self.sb.check_high_score()
 
     def _check_aliens_bottom(self):
         screen_rect = self.screen.get_rect()
