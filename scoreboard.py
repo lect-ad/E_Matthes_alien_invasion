@@ -1,4 +1,7 @@
 import pygame.font
+from pygame.sprite import Group
+
+from ship import Ship
 
 
 class Scoreboard:
@@ -8,6 +11,7 @@ class Scoreboard:
 
     def __init__(self, ai_game):
         """Initiates attributes of score counting."""
+        self.ai_game = ai_game
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
@@ -19,6 +23,7 @@ class Scoreboard:
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
+        self.prep_lives_left()
 
     def prep_score(self):
         """Transforms current score into image."""
@@ -52,11 +57,21 @@ class Scoreboard:
         self.level_rect.right = self.score_rect.right
         self.level_rect.top = self.score_rect.bottom + 10
 
+    def prep_lives_left(self):
+        """Reports about current lives left."""
+        self.lives_left = Group()
+        for life_number in range(self.ai_game.stats.ships_left):
+            life = Ship(self.ai_game)
+            life.rect.x = 10 + life_number * life.rect.width
+            life.rect.y = 20
+            self.lives_left.add(life)
+
     def show_score(self):
-        """Displays the score, high-score, level and number of aliens left."""
+        """Displays the score, high-score, level and number of lives left."""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
+        self.lives_left.draw(self.screen)
 
     def check_high_score(self):
         """Checks for new high-score and updates it."""
