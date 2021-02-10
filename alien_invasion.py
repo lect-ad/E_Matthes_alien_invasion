@@ -63,17 +63,9 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_position):
         """Starts new game on Play button clicking."""
-        if self.play_button.rect.collidepoint(mouse_position):
-            self.stats.reset_stats()
-            self.stats.game_active = True
-
-            self.aliens.empty()
-            self.bullets.empty()
-
-            self._create_fleet()
-            self.ship.center_ship()
-
-            sleep(1)
+        button_clicked = self.play_button.rect.collidepoint(mouse_position)
+        if button_clicked and not self.stats.game_active:
+            self._start_game()
 
     def _check_keydown_events(self, event):
         """Processes key pressings."""
@@ -85,6 +77,9 @@ class AlienInvasion:
         if event.key == pygame.K_SPACE:
             self._fire_bullet()
 
+        if event.key == pygame.K_p:
+            self._start_game()
+
         if event.key == pygame.K_q:
             sys.exit()
 
@@ -94,6 +89,21 @@ class AlienInvasion:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+
+    def _start_game(self):
+        """Launches the game."""
+        self.stats.reset_stats()
+        self.stats.game_active = True
+
+        self.aliens.empty()
+        self.bullets.empty()
+
+        self._create_fleet()
+        self.ship.center_ship()
+
+        pygame.mouse.set_visible(False)
+
+        sleep(1)
 
     def _create_fleet(self):
         """Creates alien intruders' fleet."""
@@ -190,6 +200,7 @@ class AlienInvasion:
             self.ship.center_ship()
         else:
             self.stats.game_active = False
+            pygame.mouse.set_visible(True)
 
         sleep(1)
 
