@@ -20,6 +20,10 @@ class Scoreboard:
         self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont('comicsansms', 36)
 
+        self.prep_images()
+
+    def prep_images(self):
+        """Calls for methods preparing images."""
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
