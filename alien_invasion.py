@@ -73,12 +73,14 @@ class AlienInvasion:
         hard_clicked = self.hard_button.rect.collidepoint(mouse_position)
         if not self.stats.game_active:
             if easy_clicked:
-                self.settings.difficulty = 0.5
+                self.settings.difficulty = 0.7
+                self._start_game()
             elif normal_clicked:
                 self.settings.difficulty = 1
+                self._start_game()
             elif hard_clicked:
-                self.settings.difficulty = 1.5
-            self._start_game()
+                self.settings.difficulty = 1.3
+                self._start_game()
 
     def _check_keydown_events(self, event):
         """Processes key pressings."""
@@ -92,13 +94,13 @@ class AlienInvasion:
 
         if not self.stats.game_active:
             if event.key == pygame.K_e:
-                self.settings.difficulty = 0.5
+                self.settings.difficulty = 0.7
                 self._start_game()
             elif event.key == pygame.K_n:
                 self.settings.difficulty = 1
                 self._start_game()
             elif event.key == pygame.K_h:
-                self.settings.difficulty = 1.5
+                self.settings.difficulty = 1.3
                 self._start_game()
 
         if event.key == pygame.K_q:
